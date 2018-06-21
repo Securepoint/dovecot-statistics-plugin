@@ -1,0 +1,41 @@
+Description
+-----------
+
+This plugin write mailbox statistic information to syslog and/or Tokyo Tyrant database.
+
+Dependencies
+------------
+
+  - Tokyo Tyrant.
+
+
+Dovecot configuration
+---------------------
+
+The plugin can be registered for lda, lmtp and imap protocols:
+
+mail_plugins = $mail_plugins uma_statistic
+
+The following configuration can be set for the plugin:
+
+plugin {
+	uma_statistic_syslog = 1
+	uma_statistic_db = 1
+	uma_statistic_ignore_folder_list = temp:foo
+}
+
+The statistic information is written in syslog if <uma_statistic_syslog> is set to 1 or yes.
+
+The statistic information is written to collectd database if <uma_statistic_db> is set to 1 or yes.
+
+The statistic of folders listed in <uma_statistic_ignore_folder_list> are ignored.
+
+
+Tokyo Tyrant configuration
+-------------------
+
+A Tokyo Tyrant server should be started, like this:
+
+ttserver -port 9090 test.tch
+
+The default port is 9090, which can be replaced by the compile time flag DB_SERVER_PORT.
